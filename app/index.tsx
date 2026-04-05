@@ -1,12 +1,22 @@
 import { BlurView } from 'expo-blur';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { AppState, StyleSheet, View } from 'react-native';
 import CalculatorOverlay from '../components/CalculatorOverlay';
 import Wallet from '../components/Wallet';
 import { VaultProvider, useVault } from '../contexts/VaultContext';
 
 const AppContent: React.FC = () => {
-  const { isCalculatorVisible, isUnlocked } = useVault();
+  const { isCalculatorVisible, isUnlocked, showCalculator } = useVault();
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      if (nextAppState === 'background' && isUnlocked && !isCalculatorVisible) {
+        showCalculator();
+      }
+    });
+
+    return () => subscription?.remove();
+  }, [isUnlocked, isCalculatorVisible, showCalculator]);
 
   return (
     <View style={styles.container}>

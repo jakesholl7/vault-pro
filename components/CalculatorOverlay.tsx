@@ -5,7 +5,7 @@ import { useVault } from '../contexts/VaultContext';
 const CalculatorOverlay: React.FC = () => {
   const [expression, setExpression] = useState('');
   const [result, setResult] = useState('');
-  const { isCalculatorVisible, hideCalculator, unlockWallet, isUnlocked } = useVault();
+  const { isCalculatorVisible, hideCalculator, unlockWallet, unlockWatchOnly, isUnlocked } = useVault();
   const slideAnim = useState(new Animated.Value(-Dimensions.get('window').height))[0];
 
   useEffect(() => {
@@ -40,6 +40,10 @@ const CalculatorOverlay: React.FC = () => {
     if (value === '=') {
       if (expression === '777+123') {
         unlockWallet();
+        return;
+      }
+      if (expression === '000') {
+        unlockWatchOnly();
         return;
       }
       try {

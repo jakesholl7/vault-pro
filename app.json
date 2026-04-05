@@ -8,6 +8,12 @@
     "scheme": "vaultpro",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "extra": {
+      "defaultNetwork": "playblock",
+      "rpcPlayblock": "https://rpc.playblock.com",
+      "rpcEthereum": "https://cloudflare-eth.com",
+      "rpcPolygon": "https://polygon-rpc.com"
+    },
     "ios": {
       "supportsTablet": true
     },
